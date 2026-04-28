@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Técnica 5-4-3-2-1 - Saúde Mental | Feira de Ciências</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* ===== RESET & BASE ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --cor-fundo: #e8f4f8;
+            --cor-texto: #2c3e50;
+            --cor-texto-suave: #5a6c7d;
+            --cor-primaria: #5b9bd5;
+            --cor-sucesso: #7bc8a0;
+            --cor-aviso: #f0c36d;
+            --cor-roxo: #a29bfe;
+            --cor-rosa: #e07a9e;
+            --sombra: 0 8px 32px rgba(31, 38, 135, 0.1);
+            --borda-radius: 24px;
+            --transicao: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background: linear-gradient(135deg, #e0f7fa 0%, #e8f5e9 50%, #f3e5f5 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 2rem 1rem;
+            position: relative;
+            overflow-x: hidden;
+            color: var(--cor-texto);
+        }
+
+        /* ===== DECORAÇÃO FLUTUANTE ===== */
+        .decoracao {
+            position: fixed;
+            border-radius: 50%;
+            opacity: 0.12;
+            pointer-events: none;
+            z-index: 0;
+            animation: flutuar 10s ease-in-out infinite;
+        }
+
+        .decoracao:nth-child(1) {
+            width: 140px; height: 140px;
+            background: var(--cor-primaria);
+            top: 5%; left: 3%;
+            animation-delay: 0s;
+        }
+        .decoracao:nth-child(2) {
+            width: 90px; height: 90px;
+            background: var(--cor-sucesso);
+            top: 60%; right: 5%;
+            animation-delay: 2s;
+        }
+        .decoracao:nth-child(3) {
+            width: 70px; height: 70px;
+            background: var(--cor-roxo);
+            bottom: 10%; left: 8%;
+            animation-delay: 4s;
+        }
+        .decoracao:nth-child(4) {
+            width: 110px; height: 110px;
+            background: var(--cor-aviso);
+            top: 25%; right: 3%;
+            animation-delay: 1s;
+        }
+        .decoracao:nth-child(5) {
+            width: 60px; height: 60px;
+            background: var(--cor-rosa);
+            top: 45%; left: 2%;
+            animation-delay: 3s;
+        }
+        .decoracao:nth-child(6) {
+            width: 80px; height: 80px;
+            background: var(--cor-sucesso);
+            bottom: 20%; right: 10%;
+            animation-delay: 5s;
+        }
+
+        @keyframes flutuar {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-30px) scale(1.05); }
+        }
+
+        /* ===== NAVEGAÇÃO ===== */
+        nav {
+            width: 100%;
+            max-width: 1200px;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            border-radius: 50px;
+            padding: 0.8rem 1.5rem;
+            margin-bottom: 2.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: var(--sombra);
+            position: relative;
+            z-index: 10;
+            animation: entrada 0.8s ease-out;
+        }
+
+        .nav-logo {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--cor-sucesso);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--cor-texto-suave);
+            font-weight: 600;
+            font-size: 0.95rem;
+            padding: 0.4rem 1rem;
+            border-radius: 50px;
+            transition: var(--transicao);
+        }
+
+        .nav-links a:hover {
+            background: rgba(91, 155, 213, 0.1);
+            color: var(--cor-primaria);
+        }
+
+        /* ===== CONTEÚDO PRINCIPAL ===== */
+        .container-jogo {
+            width: 100%;
+            max-width: 600px;
+            position: relative;
+            z-index: 1;
+            animation: entrada 0.8s ease-out 0.1s both;
+        }
+
+        /* ===== TÍTULO ===== */
+        .titulo-section {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .titulo-section h1 {
+            font-size: 2.4rem;
+            font-weight: 700;
+            color: var(--cor-texto);
+            margin-bottom: 0.4rem;
+            letter-spacing: -0.5px;
+        }
+
+        .titulo-section p {
+            font-size: 1.05rem;
+            color: var(--cor-texto-suave);
+            font-weight: 500;
+        }
+
+        /* ===== CARD PRINCIPAL ===== */
+        .card-principal {
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            border-radius: var(--borda-radius);
+            box-shadow: var(--sombra);
+            padding: 3rem 2.5rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            min-height: 420px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* ===== BARRA DE PROGRESSO ===== */
+        .progresso-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0.8rem;
+            margin-bottom: 2rem;
+        }
+
+        .progresso-passo {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.6);
+            border: 2px solid rgba(91, 155, 213, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--cor-texto-suave);
+            transition: var(--transicao);
+            position: relative;
+        }
+
+        .progresso-passo.ativo {
+            background: linear-gradient(135deg, var(--cor-primaria), var(--cor-roxo));
+            border-color: transparent;
+            color: white;
+            box-shadow: 0 4px 15px rgba(91, 155, 213, 0.4);
+            transform: scale(1.15);
+        }
+
+        .progresso-passo.concluido {
+            background: var(--cor-sucesso);
+            border-color: transparent;
+            color: white;
+        }
+
+        .progresso-linha {
+            width: 30px;
+            height: 3px;
+            background: rgba(91, 155, 213, 0.15);
+            border-radius: 2px;
+            transition: var(--transicao);
+        }
+
+        .progresso-linha.preenchida {
+            background: linear-gradient(90deg, var(--cor-sucesso), var(--cor-primaria));
+        }
+
+        /* ===== ÁREA DA ETAPA ===== */
+        .etapa-conteudo {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 1.5rem;
+            width: 100%;
+            opacity: 1;
+            transform: translateY(0);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        .etapa-conteudo.saindo {
+            opacity: 0;
+            transform: translateY(-20px);
+        }
+
+        .etapa-conteudo.entrando {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .etapa-numero {
+            font-size: 6rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--cor-primaria), var(--cor-roxo));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1;
+            animation: pulsar-numero 3s ease-in-out infinite;
+        }
+
+        @keyframes pulsar-numero {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .etapa-icone {
+            font-size: 3.5rem;
+            animation: flutuar-icone 4s ease-in-out infinite;
+        }
+
+        @keyframes flutuar-icone {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .etapa-texto {
+            font-size: 1.25rem;
+            color: var(--cor-texto);
+            font-weight: 600;
+            line-height: 1.6;
+            max-width: 400px;
+        }
+
+        .etapa-dica {
+            font-size: 0.95rem;
+            color: var(--cor-texto-suave);
+            font-weight: 500;
+            font-style: italic;
+        }
+
+        /* ===== BOTÃO ===== */
+        .btn-acao {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: linear-gradient(135deg, var(--cor-primaria), var(--cor-roxo));
+            color: white;
+            font-family: 'Quicksand', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            padding: 1rem 3rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 6px 20px rgba(91, 155, 213, 0.4);
+            transition: var(--transicao);
+            position: relative;
+            overflow: hidden;
+            margin-top: 1rem;
+        }
+
+        .btn-acao::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: 0.5s;
+        }
+
+        .btn-acao:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(91, 155, 213, 0.5);
+        }
+
+        .btn-acao:hover::before {
+            left: 100%;
+        }
+
+        .btn-acao:active {
+            transform: translateY(0);
+        }
+
+        /* ===== TELA FINAL ===== */
+        .tela-final {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 1.5rem;
+            width: 100%;
+            animation: entrada 0.8s ease-out;
+        }
+
+        .tela-final.visivel {
+            display: flex;
+        }
+
+        .tela-final-icone {
+            font-size: 4rem;
+            animation: pulsar-icone 2s ease-in-out infinite;
+        }
+
+        @keyframes pulsar-icone {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .tela-final h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--cor-texto);
+            line-height: 1.4;
+        }
+
+        .tela-final p {
+            font-size: 1.05rem;
+            color: var(--cor-texto-suave);
+            font-weight: 500;
+            max-width: 350px;
+        }
+
+        .btn-voltar {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: linear-gradient(135deg, var(--cor-sucesso), #5cb85c);
+            color: white;
+            font-family: 'Quicksand', sans-serif;
+            font-size: 1.05rem;
+            font-weight: 700;
+            padding: 1rem 2.5rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            text-decoration: none;
+            box-shadow: 0 6px 20px rgba(123, 200, 160, 0.4);
+            transition: var(--transicao);
+            position: relative;
+            overflow: hidden;
+            margin-top: 0.5rem;
+        }
+
+        .btn-voltar:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(123, 200, 160, 0.5);
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            margin-top: 2.5rem;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+            animation: entrada 0.8s ease-out 0.3s both;
+        }
+
+        footer p {
+            font-size: 0.9rem;
+            color: var(--cor-texto-suave);
+            font-weight: 500;
+        }
+
+        footer a {
+            color: var(--cor-primaria);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        /* ===== ANIMAÇÕES ===== */
+        @keyframes entrada {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ===== RESPONSIVIDADE ===== */
+        @media (max-width: 768px) {
+            nav {
+                flex-direction: column;
+                gap: 0.8rem;
+                padding: 1rem;
+                border-radius: 20px;
+            }
+
+            .nav-links {
+                gap: 0.6rem;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .titulo-section h1 {
+                font-size: 1.9rem;
+            }
+
+            .card-principal {
+                padding: 2rem 1.5rem;
+                border-radius: 20px;
+                min-height: 380px;
+            }
+
+            .etapa-numero {
+                font-size: 4.5rem;
+            }
+
+            .etapa-icone {
+                font-size: 2.8rem;
+            }
+
+            .etapa-texto {
+                font-size: 1.1rem;
+            }
+
+            .progresso-passo {
+                width: 34px;
+                height: 34px;
+                font-size: 0.75rem;
+            }
+
+            .progresso-linha {
+                width: 20px;
+            }
+
+            .btn-acao {
+                width: 100%;
+                justify-content: center;
+                padding: 1rem 2rem;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .progresso-passo {
+                width: 30px;
+                height: 30px;
+                font-size: 0.7rem;
+            }
+
+            .progresso-linha {
+                width: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Decorações flutuantes -->
+    <div class="decoracao"></div>
+    <div class="decoracao"></div>
+    <div class="decoracao"></div>
+    <div class="decoracao"></div>
+    <div class="decoracao"></div>
+    <div class="decoracao"></div>
+
+    <!-- Navegação -->
+    <nav>
+        <a href="feiraabril.html" class="nav-logo">🌿 Saúde Mental</a>
+        <ul class="nav-links">
+            <li><a href="feiraabril.html">Início</a></li>
+            <li><a href="jogo.html">Como está?</a></li>
+            <li><a href="menu-jogos.html">Jogos</a></li>
+        </ul>
+    </nav>
+
+    <!-- Conteúdo principal -->
+    <main class="container-jogo">
+        <!-- Título -->
+        <section class="titulo-section">
+            <h1>Técnica 5-4-3-2-1</h1>
+            <p>Use seus sentidos para se conectar ao momento presente</p>
+        </section>
+
+        <!-- Card principal -->
+        <div class="card-principal">
+            <!-- Barra de progresso -->
+            <div class="progresso-container" id="progresso">
+                <div class="progresso-passo ativo" data-passo="0">5</div>
+                <div class="progresso-linha" data-linha="0"></div>
+                <div class="progresso-passo" data-passo="1">4</div>
+                <div class="progresso-linha" data-linha="1"></div>
+                <div class="progresso-passo" data-passo="2">3</div>
+                <div class="progresso-linha" data-linha="2"></div>
+                <div class="progresso-passo" data-passo="3">2</div>
+                <div class="progresso-linha" data-linha="3"></div>
+                <div class="progresso-passo" data-passo="4">1</div>
+            </div>
+
+            <!-- Área da etapa -->
+            <div class="etapa-conteudo" id="etapa-conteudo">
+                <div class="etapa-numero" id="etapa-numero">5</div>
+                <div class="etapa-icone" id="etapa-icone">👁️</div>
+                <p class="etapa-texto" id="etapa-texto">Observe 5 coisas que você consegue ver ao seu redor.</p>
+                <p class="etapa-dica" id="etapa-dica">Preste atenção nas cores, formas e texturas.</p>
+                <button class="btn-acao" id="btn-proximo">
+                    <span>Próximo</span>
+                    <span>→</span>
+                </button>
+            </div>
+
+            <!-- Tela final -->
+            <div class="tela-final" id="tela-final">
+                <div class="tela-final-icone">🌿</div>
+                <h2>Você trouxe sua atenção para o presente.</h2>
+                <p>Respire fundo e siga com calma.</p>
+                <a href="menu-jogos.html" class="btn-voltar">
+                    <span>←</span>
+                    <span>Voltar ao menu</span>
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>Feito com 💚 para a Feira de Ciências 2026 · <a href="https://cvv.org.br/" target="_blank" rel="noopener noreferrer">CVV 188</a></p>
+    </footer>
+
+    <script>
+        (function() {
+            // Dados das etapas
+            const etapas = [
+                {
+                    numero: 5,
+                    icone: '👁️',
+                    texto: 'Observe 5 coisas que você consegue ver ao seu redor.',
+                    dica: 'Preste atenção nas cores, formas e texturas.'
+                },
+                {
+                    numero: 4,
+                    icone: '✋',
+                    texto: 'Toque 4 coisas diferentes e preste atenção nas sensações.',
+                    dica: 'Note a temperatura, textura e peso de cada uma.'
+                },
+                {
+                    numero: 3,
+                    icone: '👂',
+                    texto: 'Escute 3 sons ao seu redor.',
+                    dica: 'Pode ser o vento, uma voz distante ou o tic-tac de um relógio.'
+                },
+                {
+                    numero: 2,
+                    icone: '👃',
+                    texto: 'Perceba 2 cheiros próximos.',
+                    dica: 'Inspire devagar e identifique aromas ao seu redor.'
+                },
+                {
+                    numero: 1,
+                    icone: '👅',
+                    texto: 'Identifique 1 coisa que você pode saborear.',
+                    dica: 'Pode ser o gosto na sua boca ou um gole de água.'
+                }
+            ];
+
+            let etapaAtual = 0;
+
+            // Elementos
+            const etapaConteudo = document.getElementById('etapa-conteudo');
+            const telaFinal = document.getElementById('tela-final');
+            const btnProximo = document.getElementById('btn-proximo');
+            const progresso = document.getElementById('progresso');
+
+            const elNumero = document.getElementById('etapa-numero');
+            const elIcone = document.getElementById('etapa-icone');
+            const elTexto = document.getElementById('etapa-texto');
+            const elDica = document.getElementById('etapa-dica');
+
+            // Atualiza a barra de progresso
+            function atualizarProgresso() {
+                const passos = document.querySelectorAll('.progresso-passo');
+                const linhas = document.querySelectorAll('.progresso-linha');
+
+                passos.forEach((passo, index) => {
+                    passo.classList.remove('ativo', 'concluido');
+                    if (index < etapaAtual) {
+                        passo.classList.add('concluido');
+                    } else if (index === etapaAtual) {
+                        passo.classList.add('ativo');
+                    }
+                });
+
+                linhas.forEach((linha, index) => {
+                    linha.classList.toggle('preenchida', index < etapaAtual);
+                });
+            }
+
+            // Exibe uma etapa com animação
+            function mostrarEtapa(index) {
+                const etapa = etapas[index];
+
+                // Animação de saída
+                etapaConteudo.classList.add('saindo');
+
+                setTimeout(() => {
+                    elNumero.textContent = etapa.numero;
+                    elIcone.textContent = etapa.icone;
+                    elTexto.textContent = etapa.texto;
+                    elDica.textContent = etapa.dica;
+
+                    etapaConteudo.classList.remove('saindo');
+                    etapaConteudo.classList.add('entrando');
+
+                    // Força reflow para reiniciar animação
+                    void etapaConteudo.offsetWidth;
+
+                    etapaConteudo.classList.remove('entrando');
+
+                    // Atualiza texto do botão na última etapa
+                    if (index === etapas.length - 1) {
+                        btnProximo.querySelector('span:first-child').textContent = 'Finalizar';
+                        btnProximo.querySelector('span:last-child').textContent = '✓';
+                    } else {
+                        btnProximo.querySelector('span:first-child').textContent = 'Próximo';
+                        btnProximo.querySelector('span:last-child').textContent = '→';
+                    }
+                }, 400);
+            }
+
+            // Avança para próxima etapa ou mostra tela final
+            btnProximo.addEventListener('click', function() {
+                if (etapaAtual < etapas.length - 1) {
+                    etapaAtual++;
+                    atualizarProgresso();
+                    mostrarEtapa(etapaAtual);
+                } else {
+                    // Animação de saída do conteúdo
+                    etapaConteudo.style.opacity = '0';
+                    etapaConteudo.style.transform = 'translateY(-20px)';
+                    progresso.style.opacity = '0';
+                    progresso.style.transform = 'translateY(-10px)';
+
+                    setTimeout(() => {
+                        etapaConteudo.style.display = 'none';
+                        progresso.style.display = 'none';
+                        telaFinal.classList.add('visivel');
+                    }, 500);
+                }
+            });
+
+            // Inicializa
+            atualizarProgresso();
+        })();
+    </script>
+</body>
+</html>
+

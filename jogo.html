@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mini Jogos - Saúde Mental | Feira de Ciências</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* ===== RESET & BASE ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --cor-fundo: #e8f4f8;
+            --cor-fundo-card: rgba(255, 255, 255, 0.75);
+            --cor-texto: #2c3e50;
+            --cor-texto-suave: #5a6c7d;
+            --cor-primaria: #5b9bd5;
+            --cor-primaria-hover: #4a8bc2;
+            --cor-sucesso: #7bc8a0;
+            --cor-aviso: #f0c36d;
+            --cor-perigo: #e07a7a;
+            --cor-perigo-forte: #c0392b;
+            --cor-roxo: #a29bfe;
+            --cor-roxo-hover: #b3abf7;
+            --sombra: 0 8px 32px rgba(31, 38, 135, 0.1);
+            --borda-radius: 24px;
+            --transicao: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background: linear-gradient(135deg, #e0f7fa 0%, #e8f5e9 50%, #f3e5f5 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem 1rem;
+            position: relative;
+            overflow-x: hidden;
+            color: var(--cor-texto);
+        }
+
+        /* ===== DECORAÇÃO FLUTUANTE ===== */
+        .decoracao {
+            position: fixed;
+            border-radius: 50%;
+            opacity: 0.15;
+            pointer-events: none;
+            z-index: 0;
+            animation: flutuar 8s ease-in-out infinite;
+        }
+
+        .decoracao:nth-child(1) {
+            width: 120px; height: 120px;
+            background: var(--cor-primaria);
+            top: 10%; left: 5%;
+            animation-delay: 0s;
+        }
+        .decoracao:nth-child(2) {
+            width: 80px; height: 80px;
+            background: var(--cor-sucesso);
+            top: 70%; right: 8%;
+            animation-delay: 2s;
+        }
+        .decoracao:nth-child(3) {
+            width: 60px; height: 60px;
+            background: var(--cor-roxo);
+            bottom: 15%; left: 10%;
+            animation-delay: 4s;
+        }
+        .decoracao:nth-child(4) {
+            width: 100px; height: 100px;
+            background: var(--cor-aviso);
+            top: 30%; right: 5%;
+            animation-delay: 1s;
+        }
+        .decoracao:nth-child(5) {
+            width: 50px; height: 50px;
+            background: var(--cor-perigo);
+            top: 50%; left: 3%;
+            animation-delay: 3s;
+        }
+
+        @keyframes flutuar {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-25px) scale(1.05); }
+        }
+
+        /* ===== CARD PRINCIPAL ===== */
+        .card-principal {
+            background: var(--cor-fundo-card);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            border-radius: var(--borda-radius);
+            box-shadow: var(--sombra);
+            padding: 3rem 2.5rem;
+            max-width: 600px;
+            width: 100%;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+            animation: entrada 0.8s ease-out;
+        }
+
+        @keyframes entrada {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ===== TÍTULO ===== */
+        .titulo-principal {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--cor-texto);
+            margin-bottom: 0.5rem;
+            line-height: 1.3;
+        }
+
+        .subtitulo {
+            font-size: 1rem;
+            color: var(--cor-texto-suave);
+            margin-bottom: 2.5rem;
+            font-weight: 500;
+        }
+
+        /* ===== MEDIDOR DE ANSIEDADE ===== */
+        .medidor-container {
+            margin-bottom: 2.5rem;
+        }
+
+        .medidor-label {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--cor-texto);
+            margin-bottom: 1.2rem;
+            display: block;
+        }
+
+        .niveis {
+            display: flex;
+            justify-content: center;
+            gap: 0.6rem;
+            flex-wrap: wrap;
+            margin-bottom: 1.5rem;
+        }
+
+        .nivel-btn {
+            background: rgba(255, 255, 255, 0.9);
+            border: 2px solid transparent;
+            border-radius: 16px;
+            padding: 1rem 0.8rem;
+            min-width: 90px;
+            cursor: pointer;
+            transition: var(--transicao);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.4rem;
+            font-family: 'Quicksand', sans-serif;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .nivel-btn .emoji {
+            font-size: 2rem;
+            transition: transform 0.3s ease;
+        }
+
+        .nivel-btn .texto {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--cor-texto-suave);
+        }
+
+        .nivel-btn:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        }
+
+        .nivel-btn:hover .emoji {
+            transform: scale(1.2);
+        }
+
+        /* Estados ativos por nível */
+        .nivel-btn[data-nivel="1"].ativo {
+            border-color: var(--cor-sucesso);
+            background: rgba(123, 200, 160, 0.15);
+            box-shadow: 0 4px 15px rgba(123, 200, 160, 0.3);
+        }
+        .nivel-btn[data-nivel="2"].ativo {
+            border-color: #88c9a1;
+            background: rgba(136, 201, 161, 0.15);
+            box-shadow: 0 4px 15px rgba(136, 201, 161, 0.3);
+        }
+        .nivel-btn[data-nivel="3"].ativo {
+            border-color: var(--cor-aviso);
+            background: rgba(240, 195, 109, 0.15);
+            box-shadow: 0 4px 15px rgba(240, 195, 109, 0.3);
+        }
+        .nivel-btn[data-nivel="4"].ativo {
+            border-color: #e0a070;
+            background: rgba(224, 160, 112, 0.15);
+            box-shadow: 0 4px 15px rgba(224, 160, 112, 0.3);
+        }
+        .nivel-btn[data-nivel="5"].ativo {
+            border-color: var(--cor-perigo);
+            background: rgba(224, 122, 122, 0.15);
+            box-shadow: 0 4px 15px rgba(224, 122, 122, 0.3);
+        }
+
+        .nivel-btn.ativo .texto {
+            color: var(--cor-texto);
+            font-weight: 700;
+        }
+
+        /* ===== FEEDBACK ===== */
+        .feedback {
+            min-height: 60px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 0.3rem;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: var(--transicao);
+        }
+
+        .feedback.visivel {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .feedback-emoji {
+            font-size: 2.5rem;
+            animation: pulsar 2s ease-in-out infinite;
+        }
+
+        @keyframes pulsar {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .feedback-texto {
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: var(--cor-texto);
+        }
+
+        .feedback-dica {
+            font-size: 0.9rem;
+            color: var(--cor-texto-suave);
+            font-weight: 500;
+        }
+
+        /* ===== BOTÃO PRINCIPAL ===== */
+        .btn-jogos {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--cor-primaria), var(--cor-roxo));
+            color: white;
+            font-family: 'Quicksand', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+            padding: 1.1rem 3rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            text-decoration: none;
+            box-shadow: 0 6px 20px rgba(91, 155, 213, 0.4);
+            transition: var(--transicao);
+            position: relative;
+            overflow: hidden;
+            margin-top: 0.5rem;
+        }
+
+        .btn-jogos::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: 0.5s;
+        }
+
+        .btn-jogos:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(91, 155, 213, 0.5);
+        }
+
+        .btn-jogos:hover::before {
+            left: 100%;
+        }
+
+        .btn-jogos:active {
+            transform: translateY(0);
+        }
+
+        /* ===== FOOTER ===== */
+        .footer-ajuda {
+            margin-top: 2.5rem;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+            animation: entrada 1s ease-out 0.3s both;
+        }
+
+        .footer-texto {
+            font-size: 0.95rem;
+            color: var(--cor-texto-suave);
+            margin-bottom: 0.4rem;
+        }
+
+        .footer-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            padding: 0.7rem 1.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            color: var(--cor-perigo-forte);
+            font-weight: 700;
+            font-size: 1rem;
+            border: 1px solid rgba(192, 57, 43, 0.2);
+            transition: var(--transicao);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .footer-link:hover {
+            background: rgba(192, 57, 43, 0.1);
+            border-color: rgba(192, 57, 43, 0.4);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(192, 57, 43, 0.15);
+        }
+
+        .footer-link svg {
+            width: 18px;
+            height: 18px;
+            fill: currentColor;
+        }
+
+        /* ===== RESPONSIVIDADE ===== */
+        @media (max-width: 600px) {
+            .card-principal {
+                padding: 2rem 1.5rem;
+                border-radius: 20px;
+            }
+
+            .titulo-principal {
+                font-size: 1.6rem;
+            }
+
+            .subtitulo {
+                font-size: 0.9rem;
+            }
+
+            .niveis {
+                gap: 0.4rem;
+            }
+
+            .nivel-btn {
+                min-width: 70px;
+                padding: 0.8rem 0.5rem;
+                border-radius: 12px;
+            }
+
+            .nivel-btn .emoji {
+                font-size: 1.6rem;
+            }
+
+            .nivel-btn .texto {
+                font-size: 0.7rem;
+            }
+
+            .btn-jogos {
+                font-size: 1rem;
+                padding: 1rem 2.5rem;
+                width: 100%;
+            }
+
+            .feedback-emoji {
+                font-size: 2rem;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .nivel-btn {
+                min-width: 60px;
+                padding: 0.6rem 0.4rem;
+            }
+            .nivel-btn .emoji {
+                font-size: 1.4rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Decorações flutuantes -->
+    <div class="decoracao"></div>
+    <div class="decoracao"></div>
+    <div class="decoracao"></div>
+    <div class="decoracao"></div>
+    <div class="decoracao"></div>
+
+    <!-- Card principal -->
+    <main class="card-principal">
+        <h1 class="titulo-principal">Como você está se sentindo hoje?</h1>
+        <p class="subtitulo">Escolha o nível que melhor descreve sua ansiedade no momento</p>
+
+        <div class="medidor-container">
+            <div class="niveis" role="group" aria-label="Medidor de ansiedade">
+                <button class="nivel-btn" data-nivel="1" aria-label="Tranquilo">
+                    <span class="emoji">😌</span>
+                    <span class="texto">Tranquilo</span>
+                </button>
+                <button class="nivel-btn" data-nivel="2" aria-label="Leve">
+                    <span class="emoji">🙂</span>
+                    <span class="texto">Leve</span>
+                </button>
+                <button class="nivel-btn" data-nivel="3" aria-label="Moderado">
+                    <span class="emoji">😐</span>
+                    <span class="texto">Moderado</span>
+                </button>
+                <button class="nivel-btn" data-nivel="4" aria-label="Alto">
+                    <span class="emoji">😟</span>
+                    <span class="texto">Alto</span>
+                </button>
+                <button class="nivel-btn" data-nivel="5" aria-label="Muito alto">
+                    <span class="emoji">😣</span>
+                    <span class="texto">Muito alto</span>
+                </button>
+            </div>
+
+            <div class="feedback" id="feedback">
+                <span class="feedback-emoji" id="feedback-emoji"></span>
+                <span class="feedback-texto" id="feedback-texto"></span>
+                <span class="feedback-dica" id="feedback-dica"></span>
+            </div>
+        </div>
+
+        <a href="menu-jogos.html" class="btn-jogos">Ir para os jogos</a>
+    </main>
+
+    <!-- Footer com ajuda -->
+    <footer class="footer-ajuda">
+        <p class="footer-texto">Se precisar de mais ajuda, ligue.</p>
+        <a href="https://cvv.org.br/" target="_blank" rel="noopener noreferrer" class="footer-link">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M20.01 15.38c-1.23 0-2.42-.2-3.53-.56a.977.977 0 00-1.01.24l-1.57 1.97c-2.83-1.44-5.15-3.75-6.59-6.59l1.97-1.57a.98.98 0 00.24-1.01c-.37-1.11-.56-2.3-.56-3.53 0-.54-.45-.99-.99-.99H4.19C3.65 3 3 3.24 3 3.99 3 13.28 10.73 21 20.01 21c.71 0 .99-.63.99-1.18v-3.45c0-.54-.45-.99-.99-.99z"/>
+            </svg>
+            CVV - 188
+        </a>
+    </footer>
+
+    <script>
+        (function() {
+            const niveis = document.querySelectorAll('.nivel-btn');
+            const feedback = document.getElementById('feedback');
+            const feedbackEmoji = document.getElementById('feedback-emoji');
+            const feedbackTexto = document.getElementById('feedback-texto');
+            const feedbackDica = document.getElementById('feedback-dica');
+
+            const mensagens = {
+                1: {
+                    emoji: '🌿',
+                    texto: 'Que ótimo! Você está tranquilo.',
+                    dica: 'Aproveite esse momento para fazer algo que te faça feliz.'
+                },
+                2: {
+                    emoji: '☀️',
+                    texto: 'Tudo bem sentir um pouco de tensão.',
+                    dica: 'Uma respiração profunda pode ajudar a manter o equilíbrio.'
+                },
+                3: {
+                    emoji: '🌊',
+                    texto: 'Ansiedade moderada é normal.',
+                    dica: 'Que tal experimentar um dos nossos jogos de respiração?'
+                },
+                4: {
+                    emoji: '🤗',
+                    texto: 'Estou aqui com você.',
+                    dica: 'Os jogos de relaxamento podem ajudar a acalmar a mente.'
+                },
+                5: {
+                    emoji: '💙',
+                    texto: 'Respire comigo. Você não está sozinho.',
+                    dica: 'Se necessário, converse com alguém de confiança ou ligue para o CVV 188.'
+                }
+            };
+
+            niveis.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    // Remove ativo de todos
+                    niveis.forEach(b => b.classList.remove('ativo'));
+                    // Adiciona ativo no clicado
+                    this.classList.add('ativo');
+
+                    const nivel = this.dataset.nivel;
+                    const msg = mensagens[nivel];
+
+                    // Animação de saída
+                    feedback.classList.remove('visivel');
+
+                    setTimeout(() => {
+                        feedbackEmoji.textContent = msg.emoji;
+                        feedbackTexto.textContent = msg.texto;
+                        feedbackDica.textContent = msg.dica;
+                        feedback.classList.add('visivel');
+                    }, 200);
+                });
+            });
+        })();
+    </script>
+</body>
+</html>
+

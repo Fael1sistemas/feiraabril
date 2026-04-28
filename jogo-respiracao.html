@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Respiração Guiada - Saúde Mental | Feira de Ciências</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* ===== RESET & BASE ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --cor-fundo: #e8f4f8;
+            --cor-texto: #2c3e50;
+            --cor-texto-suave: #5a6c7d;
+            --cor-primaria: #5b9bd5;
+            --cor-primaria-escura: #3a7bc8;
+            --cor-sucesso: #7bc8a0;
+            --cor-aviso: #f0c36d;
+            --cor-roxo: #a29bfe;
+            --cor-rosa: #e07a9e;
+            --sombra: 0 8px 32px rgba(31, 38, 135, 0.1);
+            --borda-radius: 24px;
+            --transicao: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background: linear-gradient(135deg, #e0f7fa 0%, #e8f5e9 50%, #f3e5f5 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 2rem 1rem;
+            position: relative;
+            overflow-x: hidden;
+            color: var(--cor-texto);
+        }
+
+        /* ===== DECORAÇÃO FLUTUANTE ===== */
+        .decoracao {
+            position: fixed;
+            border-radius: 50%;
+            opacity: 0.12;
+            pointer-events: none;
+            z-index: 0;
+            animation: flutuar 10s ease-in-out infinite;
+        }
+
+        .decoracao:nth-child(1) {
+            width: 140px; height: 140px;
+            background: var(--cor-primaria);
+            top: 5%; left: 3%;
+            animation-delay: 0s;
+        }
+        .decoracao:nth-child(2) {
+            width: 90px; height: 90px;
+            background: var(--cor-sucesso);
+            top: 60%; right: 5%;
+            animation-delay: 2s;
+        }
+        .decoracao:nth-child(3) {
+            width: 70px; height: 70px;
+            background: var(--cor-roxo);
+            bottom: 10%; left: 8%;
+            animation-delay: 4s;
+        }
+        .decoracao:nth-child(4) {
+            width: 110px; height: 110px;
+            background: var(--cor-aviso);
+            top: 25%; right: 3%;
+            animation-delay: 1s;
+        }
+        .decoracao:nth-child(5) {
+            width: 60px; height: 60px;
+            background: var(--cor-rosa);
+            top: 45%; left: 2%;
+            animation-delay: 3s;
+        }
+        .decoracao:nth-child(6) {
+            width: 80px; height: 80px;
+            background: var(--cor-sucesso);
+            bottom: 20%; right: 10%;
+            animation-delay: 5s;
+        }
+
+        @keyframes flutuar {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-30px) scale(1.05); }
+        }
+
+        /* ===== NAVEGAÇÃO ===== */
+        nav {
+            width: 100%;
+            max-width: 1200px;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            border-radius: 50px;
+            padding: 0.8rem 1.5rem;
+            margin-bottom: 2.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: var(--sombra);
+            position: relative;
+            z-index: 10;
+            animation: entrada 0.8s ease-out;
+        }
+
+        .nav-logo {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--cor-sucesso);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--cor-texto-suave);
+            font-weight: 600;
+            font-size: 0.95rem;
+            padding: 0.4rem 1rem;
+            border-radius: 50px;
+            transition: var(--transicao);
+        }
+
+        .nav-links a:hover {
+            background: rgba(91, 155, 213, 0.1);
+            color: var(--cor-primaria);
+        }
+
+        /* ===== CONTEÚDO PRINCIPAL ===== */
+        .container-jogo {
+            width: 100%;
+            max-width: 600px;
+            position: relative;
+            z-index: 1;
+            animation: entrada 0.8s ease-out 0.1s both;
+        }
+
+        /* ===== TÍTULO ===== */
+        .titulo-section {
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+
+        .titulo-section h1 {
+            font-size: 2.4rem;
+            font-weight: 700;
+            color: var(--cor-texto);
+            margin-bottom: 0.4rem;
+            letter-spacing: -0.5px;
+        }
+
+        .titulo-section p {
+            font-size: 1.05rem;
+            color: var(--cor-texto-suave);
+            font-weight: 500;
+        }
+
+        /* ===== CARD PRINCIPAL ===== */
+        .card-principal {
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            border-radius: var(--borda-radius);
+            box-shadow: var(--sombra);
+            padding: 3rem 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2.5rem;
+        }
+
+        /* ===== ÁREA DO CÍRCULO ===== */
+        .circulo-area {
+            position: relative;
+            width: 280px;
+            height: 280px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Setas circulares (SVG) */
+        .setas-ciclo {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            animation: girar-setas 20s linear infinite;
+            pointer-events: none;
+        }
+
+        @keyframes girar-setas {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .setas-ciclo svg {
+            width: 100%;
+            height: 100%;
+            opacity: 0.35;
+        }
+
+        /* Círculos */
+        .circulo-fundo {
+            width: 220px;
+            height: 220px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 35% 35%, #c2e0f5, #a8d0f0);
+            box-shadow: 0 8px 32px rgba(91, 155, 213, 0.2);
+            position: absolute;
+        }
+
+        .circulo-frente {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 35% 35%, #7ab8e8, #5b9bd5);
+            box-shadow: 0 6px 24px rgba(91, 155, 213, 0.35);
+            position: absolute;
+            transition: transform 4s ease-in-out;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .circulo-frente.inspirar {
+            transform: scale(1.25);
+        }
+
+        .circulo-frente.expirar {
+            transform: scale(0.85);
+        }
+
+        /* Texto central */
+        .texto-central {
+            position: relative;
+            z-index: 2;
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: white;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+            user-select: none;
+        }
+
+        .texto-central.fade-out {
+            opacity: 0;
+            transform: translateY(-8px);
+        }
+
+        .texto-central.fade-in {
+            opacity: 0;
+            transform: translateY(8px);
+        }
+
+        /* Contador visual */
+        .contador-visual {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--cor-primaria-escura);
+            margin-top: 0.3rem;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            min-height: 1.4em;
+        }
+
+        .contador-visual.visivel {
+            opacity: 1;
+        }
+
+        /* ===== BOTÕES ===== */
+        .botoes {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            width: 100%;
+        }
+
+        .grupo-botoes {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .btn-acao {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            background: linear-gradient(135deg, var(--cor-primaria), var(--cor-roxo));
+            color: white;
+            font-family: 'Quicksand', sans-serif;
+            font-size: 1.05rem;
+            font-weight: 700;
+            padding: 0.9rem 2.5rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 6px 20px rgba(91, 155, 213, 0.4);
+            transition: var(--transicao);
+            position: relative;
+            overflow: hidden;
+            min-width: 140px;
+        }
+
+        .btn-acao::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: 0.5s;
+        }
+
+        .btn-acao:hover:not(:disabled) {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(91, 155, 213, 0.5);
+        }
+
+        .btn-acao:hover::before {
+            left: 100%;
+        }
+
+        .btn-acao:active:not(:disabled) {
+            transform: translateY(0);
+        }
+
+        .btn-acao:disabled {
+            background: linear-gradient(135deg, #b0b0b0, #d0d0d0);
+            cursor: not-allowed;
+            box-shadow: none;
+            opacity: 0.7;
+        }
+
+        .btn-pausar {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(10px);
+            color: var(--cor-texto-suave);
+            font-family: 'Quicksand', sans-serif;
+            font-size: 1.05rem;
+            font-weight: 700;
+            padding: 0.9rem 2.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            border-radius: 50px;
+            cursor: pointer;
+            transition: var(--transicao);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            min-width: 140px;
+        }
+
+        .btn-pausar:hover:not(:disabled) {
+            background: rgba(255, 255, 255, 0.9);
+            color: var(--cor-texto);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.08);
+        }
+
+        .btn-pausar:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .btn-voltar {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(10px);
+            color: var(--cor-texto-suave);
+            font-family: 'Quicksand', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 600;
+            padding: 0.75rem 1.8rem;
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            border-radius: 50px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: var(--transicao);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .btn-voltar:hover {
+            background: rgba(255, 255, 255, 0.9);
+            color: var(--cor-texto);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.08);
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            margin-top: 2.5rem;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+            animation: entrada 0.8s ease-out 0.3s both;
+        }
+
+        footer p {
+            font-size: 0.9rem;
+            color: var(--cor-texto-suave);
+            font-weight: 500;
+        }
+
+        footer a {
+            color: var(--cor-primaria);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        /* ===== ANIMAÇÕES ===== */
+        @keyframes entrada {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ===== RESPONSIVIDADE ===== */
+        @media (max-width: 768px) {
+            nav {
+                flex-direction: column;
+                gap: 0.8rem;
+                padding: 1rem;
+                border-radius: 20px;
+            }
+
+            .nav-links {
+                gap: 0.6rem;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .titulo-section h1 {
+                font-size: 1.9rem;
+            }
+
+            .card-principal {
+                padding: 2rem 1.2rem;
+                border-radius: 20px;
+            }
+
+            .circulo-area {
+                width: 240px;
+                height: 240px;
+            }
+
+            .circulo-fundo {
+                width: 190px;
+                height: 190px;
+            }
+
+            .circulo-frente {
+                width: 155px;
+                height: 155px;
+            }
+
+            .texto-central {
+                font-size: 1.35rem;
+            }
+
+            .btn-acao, .btn-pausar {
+                width: 100%;
+                padding: 0.9rem 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Decorações flutuantes -->
+    <div class="decoracao"></div>
+    <div class="decoracao"></div>
+    <div class="decoracao"></div>
+    <div class="decoracao"></div>
+    <div class="decoracao"></div>
+    <div class="decoracao"></div>
+
+    <!-- Navegação -->
+    <nav>
+        <a href="feiraabril.html" class="nav-logo">🌿 Saúde Mental</a>
+        <ul class="nav-links">
+            <li><a href="feiraabril.html">Início</a></li>
+            <li><a href="jogo.html">Como está?</a></li>
+            <li><a href="menu-jogos.html">Jogos</a></li>
+        </ul>
+    </nav>
+
+    <!-- Conteúdo principal -->
+    <main class="container-jogo">
+        <!-- Título -->
+        <section class="titulo-section">
+            <h1>Respiração guiada</h1>
+            <p>Respire no ritmo para acalmar sua mente</p>
+        </section>
+
+        <!-- Card principal -->
+        <div class="card-principal">
+            <!-- Área do círculo com setas -->
+            <div class="circulo-area">
+                <!-- Setas circulares formando ciclo -->
+                <div class="setas-ciclo" aria-hidden="true">
+                    <svg viewBox="0 0 280 280" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M140 20 A120 120 0 1 1 50 65" stroke="#5b9bd5" stroke-width="3" stroke-linecap="round" fill="none" opacity="0.6"/>
+                        <path d="M140 20 A120 120 0 1 1 50 65" stroke="#5b9bd5" stroke-width="3" stroke-linecap="round" fill="none" opacity="0.6" transform="rotate(180 140 140)"/>
+                        <polygon points="45,55 62,68 42,75" fill="#5b9bd5" opacity="0.7"/>
+                        <polygon points="235,225 218,212 238,205" fill="#5b9bd5" opacity="0.7"/>
+                    </svg>
+                </div>
+
+                <!-- Círculo de fundo (azul claro, fixo) -->
+                <div class="circulo-fundo" aria-hidden="true"></div>
+
+                <!-- Círculo da frente (azul escuro, animado) -->
+                <div class="circulo-frente" id="circulo-frente" aria-hidden="true">
+                    <span class="texto-central" id="texto-central">Inspire</span>
+                </div>
+            </div>
+
+            <!-- Contador visual -->
+            <div class="contador-visual" id="contador-visual"></div>
+
+            <!-- Botões -->
+            <div class="botoes">
+                <div class="grupo-botoes">
+                    <button class="btn-acao" id="btn-iniciar">Iniciar</button>
+                    <button class="btn-pausar" id="btn-pausar" disabled>Pausar</button>
+                </div>
+                <a href="menu-jogos.html" class="btn-voltar">
+                    <span>←</span>
+                    <span>Voltar ao menu</span>
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>Feito com 💚 para a Feira de Ciências 2026 · <a href="https://cvv.org.br/" target="_blank" rel="noopener noreferrer">CVV 188</a></p>
+    </footer>
+
+    <script>
+        (function() {
+            // Elementos
+            const circuloFrente = document.getElementById('circulo-frente');
+            const textoCentral = document.getElementById('texto-central');
+            const contadorVisual = document.getElementById('contador-visual');
+            const btnIniciar = document.getElementById('btn-iniciar');
+            const btnPausar = document.getElementById('btn-pausar');
+
+            // Estado
+            let estado = 'inspire'; // 'inspire' | 'expire'
+            let timerPrincipal = null;
+            let timerContador = null;
+            let rodando = false;
+            const duracao = 4000; // 4 segundos
+
+            // Atualiza o texto com fade suave
+            function atualizarTexto(novoTexto) {
+                textoCentral.classList.add('fade-out');
+
+                setTimeout(() => {
+                    textoCentral.textContent = novoTexto;
+                    textoCentral.classList.remove('fade-out');
+                    textoCentral.classList.add('fade-in');
+
+                    // Força reflow para reiniciar a transição de entrada
+                    void textoCentral.offsetWidth;
+
+                    requestAnimationFrame(() => {
+                        textoCentral.classList.remove('fade-in');
+                    });
+                }, 350);
+            }
+
+            // Contador regressivo visual
+            function iniciarContador(segundos) {
+                let restante = segundos;
+                contadorVisual.textContent = restante + 's';
+                contadorVisual.classList.add('visivel');
+
+                if (timerContador) clearInterval(timerContador);
+
+                timerContador = setInterval(() => {
+                    restante--;
+                    if (restante >= 0) {
+                        contadorVisual.textContent = restante + 's';
+                    } else {
+                        clearInterval(timerContador);
+                        timerContador = null;
+                    }
+                }, 1000);
+            }
+
+            function pararContador() {
+                if (timerContador) {
+                    clearInterval(timerContador);
+                    timerContador = null;
+                }
+                contadorVisual.classList.remove('visivel');
+            }
+
+            // Alterna entre inspire e expire
+            function alternarEstado() {
+                if (!rodando) return;
+
+                if (estado === 'inspire') {
+                    estado = 'expire';
+                    circuloFrente.classList.remove('inspirar');
+                    circuloFrente.classList.add('expirar');
+                    atualizarTexto('Expire');
+                    iniciarContador(4);
+                } else {
+                    estado = 'inspire';
+                    circuloFrente.classList.remove('expirar');
+                    circuloFrente.classList.add('inspirar');
+                    atualizarTexto('Inspire');
+                    iniciarContador(4);
+                }
+
+                // Próximo ciclo
+                timerPrincipal = setTimeout(alternarEstado, duracao);
+            }
+
+            // Inicia o ciclo (sempre começa em Inspire)
+            function iniciar() {
+                if (rodando) return;
+                rodando = true;
+
+                estado = 'inspire';
+                circuloFrente.classList.remove('expirar');
+                circuloFrente.classList.add('inspirar');
+                atualizarTexto('Inspire');
+                iniciarContador(4);
+
+                btnIniciar.disabled = true;
+                btnPausar.disabled = false;
+
+                timerPrincipal = setTimeout(alternarEstado, duracao);
+            }
+
+            // Pausa o ciclo, mantendo o estado atual
+            function pausar() {
+                if (!rodando) return;
+                rodando = false;
+
+                if (timerPrincipal) {
+                    clearTimeout(timerPrincipal);
+                    timerPrincipal = null;
+                }
+
+                pararContador();
+
+                btnIniciar.disabled = false;
+                btnIniciar.textContent = 'Continuar';
+                btnPausar.disabled = true;
+            }
+
+            // Eventos
+            btnIniciar.addEventListener('click', iniciar);
+            btnPausar.addEventListener('click', pausar);
+        })();
+    </script>
+</body>
+</html>
+

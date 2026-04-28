@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu de Jogos - Saúde Mental | Feira de Ciências</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* ===== RESET & BASE ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --cor-fundo: #e8f4f8;
+            --cor-texto: #2c3e50;
+            --cor-texto-suave: #5a6c7d;
+            --cor-primaria: #5b9bd5;
+            --cor-sucesso: #7bc8a0;
+            --cor-aviso: #f0c36d;
+            --cor-roxo: #a29bfe;
+            --cor-rosa: #e07a9e;
+            --sombra: 0 8px 32px rgba(31, 38, 135, 0.1);
+            --borda-radius: 24px;
+            --transicao: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background: linear-gradient(135deg, #e0f7fa 0%, #e8f5e9 50%, #f3e5f5 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 2rem 1rem;
+            position: relative;
+            overflow-x: hidden;
+            color: var(--cor-texto);
+        }
+
+        /* ===== DECORAÇÃO FLUTUANTE ===== */
+        .decoracao {
+            position: fixed;
+            border-radius: 50%;
+            opacity: 0.12;
+            pointer-events: none;
+            z-index: 0;
+            animation: flutuar 10s ease-in-out infinite;
+        }
+
+        .decoracao:nth-child(1) {
+            width: 140px; height: 140px;
+            background: var(--cor-primaria);
+            top: 5%; left: 3%;
+            animation-delay: 0s;
+        }
+        .decoracao:nth-child(2) {
+            width: 90px; height: 90px;
+            background: var(--cor-sucesso);
+            top: 60%; right: 5%;
+            animation-delay: 2s;
+        }
+        .decoracao:nth-child(3) {
+            width: 70px; height: 70px;
+            background: var(--cor-roxo);
+            bottom: 10%; left: 8%;
+            animation-delay: 4s;
+        }
+        .decoracao:nth-child(4) {
+            width: 110px; height: 110px;
+            background: var(--cor-aviso);
+            top: 25%; right: 3%;
+            animation-delay: 1s;
+        }
+        .decoracao:nth-child(5) {
+            width: 60px; height: 60px;
+            background: var(--cor-rosa);
+            top: 45%; left: 2%;
+            animation-delay: 3s;
+        }
+        .decoracao:nth-child(6) {
+            width: 80px; height: 80px;
+            background: var(--cor-sucesso);
+            bottom: 20%; right: 10%;
+            animation-delay: 5s;
+        }
+
+        @keyframes flutuar {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-30px) scale(1.05); }
+        }
+
+        /* ===== NAVEGAÇÃO ===== */
+        nav {
+            width: 100%;
+            max-width: 1200px;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            border-radius: 50px;
+            padding: 0.8rem 1.5rem;
+            margin-bottom: 2.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: var(--sombra);
+            position: relative;
+            z-index: 10;
+            animation: entrada 0.8s ease-out;
+        }
+
+        .nav-logo {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--cor-sucesso);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--cor-texto-suave);
+            font-weight: 600;
+            font-size: 0.95rem;
+            padding: 0.4rem 1rem;
+            border-radius: 50px;
+            transition: var(--transicao);
+        }
+
+        .nav-links a:hover {
+            background: rgba(91, 155, 213, 0.1);
+            color: var(--cor-primaria);
+        }
+
+        /* ===== TÍTULO ===== */
+        .titulo-section {
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+            z-index: 1;
+            animation: entrada 0.8s ease-out 0.1s both;
+        }
+
+        .titulo-section h1 {
+            font-size: 2.8rem;
+            font-weight: 700;
+            color: var(--cor-texto);
+            margin-bottom: 0.6rem;
+            letter-spacing: -0.5px;
+        }
+
+        .titulo-section p {
+            font-size: 1.15rem;
+            color: var(--cor-texto-suave);
+            font-weight: 500;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        /* ===== GRID DE CARDS ===== */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 2rem;
+            width: 100%;
+            max-width: 1100px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            border-radius: var(--borda-radius);
+            padding: 2.2rem 1.8rem;
+            text-align: center;
+            box-shadow: 0 6px 20px rgba(31, 38, 135, 0.08);
+            transition: var(--transicao);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: entrada 0.7s ease-out forwards;
+        }
+
+        .card:nth-child(1) { animation-delay: 0.15s; }
+        .card:nth-child(2) { animation-delay: 0.3s; }
+        .card:nth-child(3) { animation-delay: 0.45s; }
+        .card:nth-child(4) { animation-delay: 0.6s; }
+
+        /* Faixa colorida no topo do card */
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            border-radius: var(--borda-radius) var(--borda-radius) 0 0;
+            transition: var(--transicao);
+        }
+
+        .card:nth-child(1)::before { background: linear-gradient(90deg, #5b9bd5, #7bc8a0); }
+        .card:nth-child(2)::before { background: linear-gradient(90deg, #f0c36d, #e07a7a); }
+        .card:nth-child(3)::before { background: linear-gradient(90deg, #a29bfe, #5b9bd5); }
+        .card:nth-child(4)::before { background: linear-gradient(90deg, #e07a9e, #f0c36d); }
+
+        /* Ícone do card */
+        .card-icone {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin-bottom: 0.3rem;
+            transition: var(--transicao);
+        }
+
+        .card:nth-child(1) .card-icone { background: rgba(91, 155, 213, 0.12); }
+        .card:nth-child(2) .card-icone { background: rgba(240, 195, 109, 0.12); }
+        .card:nth-child(3) .card-icone { background: rgba(162, 155, 254, 0.12); }
+        .card:nth-child(4) .card-icone { background: rgba(224, 122, 158, 0.12); }
+
+        .card h2 {
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: var(--cor-texto);
+            margin-bottom: 0.2rem;
+        }
+
+        .card p {
+            font-size: 0.95rem;
+            color: var(--cor-texto-suave);
+            line-height: 1.6;
+            flex-grow: 1;
+        }
+
+        /* Botão Jogar */
+        .btn-jogar {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--cor-primaria), var(--cor-roxo));
+            color: white;
+            font-family: 'Quicksand', sans-serif;
+            font-size: 1rem;
+            font-weight: 700;
+            padding: 0.85rem 2.5rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            text-decoration: none;
+            box-shadow: 0 4px 15px rgba(91, 155, 213, 0.35);
+            transition: var(--transicao);
+            position: relative;
+            overflow: hidden;
+            margin-top: 0.5rem;
+        }
+
+        .btn-jogar::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: 0.5s;
+        }
+
+        .btn-jogar:hover::before {
+            left: 100%;
+        }
+
+        /* ===== HOVER NOS CARDS ===== */
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(31, 38, 135, 0.15);
+        }
+
+        .card:hover .card-icone {
+            transform: scale(1.15) rotate(-5deg);
+        }
+
+        .card:nth-child(1):hover {
+            border-color: rgba(91, 155, 213, 0.4);
+        }
+        .card:nth-child(2):hover {
+            border-color: rgba(240, 195, 109, 0.5);
+        }
+        .card:nth-child(3):hover {
+            border-color: rgba(162, 155, 254, 0.4);
+        }
+        .card:nth-child(4):hover {
+            border-color: rgba(224, 122, 158, 0.4);
+        }
+
+        .card:hover .btn-jogar {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(91, 155, 213, 0.45);
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            margin-top: 3rem;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+            animation: entrada 0.8s ease-out 0.8s both;
+        }
+
+        footer p {
+            font-size: 0.9rem;
+            color: var(--cor-texto-suave);
+            font-weight: 500;
+        }
+
+        footer a {
+            color: var(--cor-primaria);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        /* ===== ANIMAÇÕES ===== */
+        @keyframes entrada {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ===== RESPONSIVIDADE ===== */
+        @media (max-width: 768px) {
+            nav {
+                flex-direction: column;
+                gap: 0.8rem;
+                padding: 1rem;
+                border-radius: 20px;
+            }
+
+            .nav-links {
+                gap: 0.6rem;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .nav-links a {
+                font-size: 0.85rem;
+                padding: 0.3rem 0.8rem;
+            }
+
+            .titulo-section h1 {
+                font-size: 2rem;
+            }
+
+            .titulo-section p {
+                font-size: 1rem;
+            }
+
+            .cards-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .card {
+                padding: 1.8rem 1.5rem;
+            }
+        }
+
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .cards-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Decorações flutuantes -->
+    <div class="decoracao"></div>
+    <div class="decoracao"></div>
+    <div class="decoracao"></div>
+    <div class="decoracao"></div>
+    <div class="decoracao"></div>
+    <div class="decoracao"></div>
+
+    <!-- Navegação -->
+    <nav>
+        <a href="feiraabril.html" class="nav-logo">🌿 Saúde Mental</a>
+        <ul class="nav-links">
+            <li><a href="feiraabril.html">Início</a></li>
+            <li><a href="jogo.html">Como está?</a></li>
+            <li><a href="menu-jogos.html">Jogos</a></li>
+        </ul>
+    </nav>
+
+    <!-- Título -->
+    <section class="titulo-section">
+        <h1>Escolha uma atividade</h1>
+        <p>Explore nossos mini jogos e exercícios para cuidar da sua saúde mental de forma leve e acolhedora.</p>
+    </section>
+
+    <!-- Grid de Cards -->
+    <main class="cards-grid">
+        <!-- Card 1: Técnica 5-4-3-2-1 -->
+        <article class="card">
+            <div class="card-icone">🧘</div>
+            <h2>Técnica 5-4-3-2-1</h2>
+            <p>Use seus sentidos para se conectar ao presente.</p>
+            <a href="jogo-54321.html" class="btn-jogar">Jogar</a>
+        </article>
+
+        <!-- Card 2: Semáforo emocional -->
+        <article class="card">
+            <div class="card-icone">🚦</div>
+            <h2>Semáforo emocional</h2>
+            <p>Pare, reflita e aja com calma.</p>
+            <a href="jogo-semaforo.html" class="btn-jogar">Jogar</a>
+        </article>
+
+        <!-- Card 3: Respiração guiada -->
+        <article class="card">
+            <div class="card-icone">🌬️</div>
+            <h2>Respiração guiada</h2>
+            <p>Respire no ritmo para acalmar mente e corpo.</p>
+            <a href="jogo-respiracao.html" class="btn-jogar">Jogar</a>
+        </article>
+
+        <!-- Card 4: Colorir relaxante -->
+        <article class="card">
+            <div class="card-icone">🎨</div>
+            <h2>Colorir relaxante</h2>
+            <p>Pinte e relaxe sua mente.</p>
+            <a href="jogo-colorir.html" class="btn-jogar">Jogar</a>
+        </article>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>Feito com 💚 para a Feira de Ciências 2026 · <a href="https://cvv.org.br/" target="_blank" rel="noopener noreferrer">CVV 188</a></p>
+    </footer>
+
+    <script>
+        (function() {
+            // Efeito de tilt sutil nos cards ao mover o mouse
+            const cards = document.querySelectorAll('.card');
+
+            cards.forEach(card => {
+                card.addEventListener('mousemove', function(e) {
+                    const rect = this.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    const centerX = rect.width / 2;
+                    const centerY = rect.height / 2;
+                    const rotateX = (y - centerY) / 20;
+                    const rotateY = (centerX - x) / 20;
+
+                    this.style.transform = `translateY(-10px) perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+                });
+
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = '';
+                });
+            });
+        })();
+    </script>
+</body>
+</html>
+
