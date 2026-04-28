@@ -57,9 +57,9 @@ nav{width:100%;max-width:1200px;background:rgba(255,255,255,.85);backdrop-filter
 <body>
 <div class="dec"></div><div class="dec"></div><div class="dec"></div><div class="dec"></div><div class="dec"></div><div class="dec"></div>
 <nav>
-<a href="feiraabril.html" class="nav-logo">🌿 Saude Mental</a>
+<a href="index.html" class="nav-logo">🌿 Saude Mental</a>
 <ul class="nav-links">
-<li><a href="feiraabril.html">Inicio</a></li>
+<li><a href="index.html">Inicio</a></li>
 <li><a href="jogo.html">Como esta?</a></li>
 <li><a href="menu-jogos.html">Jogos</a></li>
 </ul>
